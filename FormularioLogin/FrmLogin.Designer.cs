@@ -29,21 +29,23 @@
         private void InitializeComponent()
         {
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.lblStatus = new System.Windows.Forms.Label();
 			this.btnCreateDatabase = new System.Windows.Forms.Button();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.textBox2 = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
-			this.textBoxUsuario = new System.Windows.Forms.TextBox();
-			this.textBoxContraseña = new System.Windows.Forms.TextBox();
-			this.lblStatus = new System.Windows.Forms.Label();
+			this.textBoxEmail = new System.Windows.Forms.TextBox();
+			this.textBoxContrasenia = new System.Windows.Forms.TextBox();
+			this.lblInfo = new System.Windows.Forms.Label();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// panel1
 			// 
 			this.panel1.BackColor = System.Drawing.Color.DarkCyan;
+			this.panel1.Controls.Add(this.lblInfo);
 			this.panel1.Controls.Add(this.lblStatus);
 			this.panel1.Controls.Add(this.btnCreateDatabase);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
@@ -52,9 +54,18 @@
 			this.panel1.Size = new System.Drawing.Size(250, 330);
 			this.panel1.TabIndex = 0;
 			// 
+			// lblStatus
+			// 
+			this.lblStatus.AutoSize = true;
+			this.lblStatus.Location = new System.Drawing.Point(12, 61);
+			this.lblStatus.Name = "lblStatus";
+			this.lblStatus.Size = new System.Drawing.Size(37, 13);
+			this.lblStatus.TabIndex = 1;
+			this.lblStatus.Text = "Status";
+			// 
 			// btnCreateDatabase
 			// 
-			this.btnCreateDatabase.Location = new System.Drawing.Point(52, 35);
+			this.btnCreateDatabase.Location = new System.Drawing.Point(12, 12);
 			this.btnCreateDatabase.Name = "btnCreateDatabase";
 			this.btnCreateDatabase.Size = new System.Drawing.Size(75, 23);
 			this.btnCreateDatabase.TabIndex = 0;
@@ -79,8 +90,7 @@
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(413, 19);
 			this.textBox1.TabIndex = 3;
-			this.textBox1.Text = "USUARIO";
-			this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+			this.textBox1.Text = "EMAIL";
 			this.textBox1.Enter += new System.EventHandler(this.textBoxContraseña_Enter);
 			this.textBox1.Leave += new System.EventHandler(this.textBoxContraseña_Leave);
 			// 
@@ -95,7 +105,6 @@
 			this.textBox2.Size = new System.Drawing.Size(413, 19);
 			this.textBox2.TabIndex = 4;
 			this.textBox2.Text = "CONTRASEÑA";
-			
 			// 
 			// label1
 			// 
@@ -122,34 +131,32 @@
 			this.button1.TabIndex = 6;
 			this.button1.Text = "INGRESAR";
 			this.button1.UseVisualStyleBackColor = false;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
+			this.button1.Click += new System.EventHandler(this.buttonIngresar_Click);
 			// 
-			// textBoxUsuario
+			// textBoxEmail
 			// 
-			this.textBoxUsuario.Location = new System.Drawing.Point(452, 119);
-			this.textBoxUsuario.Name = "textBoxUsuario";
-			this.textBoxUsuario.Size = new System.Drawing.Size(150, 20);
-			this.textBoxUsuario.TabIndex = 7;
-			
+			this.textBoxEmail.Location = new System.Drawing.Point(452, 119);
+			this.textBoxEmail.Name = "textBoxEmail";
+			this.textBoxEmail.Size = new System.Drawing.Size(150, 20);
+			this.textBoxEmail.TabIndex = 7;
 			// 
-			// textBoxContraseña
+			// textBoxContrasenia
 			// 
-			this.textBoxContraseña.Location = new System.Drawing.Point(452, 190);
-			this.textBoxContraseña.Name = "textBoxContraseña";
-			this.textBoxContraseña.Size = new System.Drawing.Size(150, 20);
-			this.textBoxContraseña.TabIndex = 8;
-			
-			this.textBoxContraseña.Enter += new System.EventHandler(this.textBoxContraseña_Enter);
-			this.textBoxContraseña.Leave += new System.EventHandler(this.textBoxContraseña_Leave);
+			this.textBoxContrasenia.Location = new System.Drawing.Point(452, 190);
+			this.textBoxContrasenia.Name = "textBoxContrasenia";
+			this.textBoxContrasenia.Size = new System.Drawing.Size(150, 20);
+			this.textBoxContrasenia.TabIndex = 8;
+			this.textBoxContrasenia.Enter += new System.EventHandler(this.textBoxContraseña_Enter);
+			this.textBoxContrasenia.Leave += new System.EventHandler(this.textBoxContraseña_Leave);
 			// 
-			// lblStatus
+			// lblInfo
 			// 
-			this.lblStatus.AutoSize = true;
-			this.lblStatus.Location = new System.Drawing.Point(52, 81);
-			this.lblStatus.Name = "lblStatus";
-			this.lblStatus.Size = new System.Drawing.Size(37, 13);
-			this.lblStatus.TabIndex = 1;
-			this.lblStatus.Text = "Status";
+			this.lblInfo.AutoSize = true;
+			this.lblInfo.Location = new System.Drawing.Point(15, 169);
+			this.lblInfo.Name = "lblInfo";
+			this.lblInfo.Size = new System.Drawing.Size(197, 13);
+			this.lblInfo.TabIndex = 2;
+			this.lblInfo.Text = "Email: admin@sistema.com, pass: admin";
 			// 
 			// FrmLogin
 			// 
@@ -157,8 +164,8 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ControlText;
 			this.ClientSize = new System.Drawing.Size(780, 330);
-			this.Controls.Add(this.textBoxContraseña);
-			this.Controls.Add(this.textBoxUsuario);
+			this.Controls.Add(this.textBoxContrasenia);
+			this.Controls.Add(this.textBoxEmail);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.textBox2);
@@ -185,10 +192,11 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBoxUsuario;
-        private System.Windows.Forms.TextBox textBoxContraseña;
+        private System.Windows.Forms.TextBox textBoxEmail;
+        private System.Windows.Forms.TextBox textBoxContrasenia;
 		private System.Windows.Forms.Button btnCreateDatabase;
 		private System.Windows.Forms.Label lblStatus;
+		private System.Windows.Forms.Label lblInfo;
 	}
 }
 

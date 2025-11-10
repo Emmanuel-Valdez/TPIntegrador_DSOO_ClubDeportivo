@@ -19,32 +19,30 @@ namespace FormularioLogin.Data
 		";
 
 		public static string CreateTables => @"
+
 		USE club;
-		
-		DROP TABLE IF EXISTS `club`.`usuario` ;
-		DROP TABLE IF EXISTS `club`.`inscripcion` ;
-		DROP TABLE IF EXISTS `club`.`actividad` ;
-		DROP TABLE IF EXISTS `club`.`socio` ;
-		DROP TABLE IF EXISTS `club`.`noSocio` ;
-		DROP TABLE IF EXISTS `club`.`rol` ;
-		DROP TABLE IF EXISTS `club`.`profesor` ;
-		DROP TABLE IF EXISTS `club`.`cuota` ;
+
+		DROP TABLE IF EXISTS `club`.`cuota`;
+		DROP TABLE IF EXISTS `club`.`inscripcion`;
+		DROP TABLE IF EXISTS `club`.`actividad`;
+		DROP TABLE IF EXISTS `club`.`profesor`;
+		DROP TABLE IF EXISTS `club`.`noSocio`;
+		DROP TABLE IF EXISTS `club`.`socio`;
+		DROP TABLE IF EXISTS `club`.`usuario`;
+		DROP TABLE IF EXISTS `club`.`rol`;
+
 		-- -----------------------------------------------------
 		-- Table `club`.`rol`
 		-- -----------------------------------------------------
-		
-
 		CREATE TABLE IF NOT EXISTS `club`.`rol` (
 		  `id` INT NOT NULL AUTO_INCREMENT,
 		  `name` VARCHAR(255) NOT NULL,
-		  PRIMARY KEY (`id`));
+		  PRIMARY KEY (`id`)
+		) ENGINE = InnoDB;
 
-		
 		-- -----------------------------------------------------
 		-- Table `club`.`usuario`
 		-- -----------------------------------------------------
-		
-
 		CREATE TABLE IF NOT EXISTS `club`.`usuario` (
 		  `id` INT NOT NULL AUTO_INCREMENT,
 		  `nombre` VARCHAR(45) NOT NULL,
@@ -52,7 +50,7 @@ namespace FormularioLogin.Data
 		  `contrasenia` NVARCHAR(250) NOT NULL,
 		  `rol_id` INT NOT NULL DEFAULT 1,
 		  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-		  `active` TINYINT NOT NULL DEFAULT 1,
+		  `activo` TINYINT NOT NULL DEFAULT 1,
 		  PRIMARY KEY (`id`),
 		  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
 		  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
@@ -61,15 +59,12 @@ namespace FormularioLogin.Data
 			FOREIGN KEY (`rol_id`)
 			REFERENCES `club`.`rol` (`id`)
 			ON DELETE NO ACTION
-			ON UPDATE NO ACTION)
-		ENGINE = InnoDB;
+			ON UPDATE NO ACTION
+		) ENGINE = InnoDB;
 
-		
 		-- -----------------------------------------------------
 		-- Table `club`.`socio`
 		-- -----------------------------------------------------
-		
-
 		CREATE TABLE IF NOT EXISTS `club`.`socio` (
 		  `id` INT NOT NULL AUTO_INCREMENT,
 		  `nombre` VARCHAR(45) NOT NULL,
@@ -88,8 +83,6 @@ namespace FormularioLogin.Data
 		-- -----------------------------------------------------
 		-- Table `club`.`noSocio`
 		-- -----------------------------------------------------
-		
-
 		CREATE TABLE IF NOT EXISTS `club`.`noSocio` (
 		  `id` INT NOT NULL AUTO_INCREMENT,
 		  `nombre` VARCHAR(45) NOT NULL,
@@ -99,95 +92,99 @@ namespace FormularioLogin.Data
 		  `email` VARCHAR(100) NOT NULL,
 		  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 		  PRIMARY KEY (`id`),
-		  UNIQUE INDEX `dni_UNIQUE` (`dni` ASC) VISIBLE)
-		ENGINE = InnoDB;
+		  UNIQUE INDEX `dni_UNIQUE` (`dni` ASC) VISIBLE
+		) ENGINE = InnoDB;
 
-		
 		-- -----------------------------------------------------
 		-- Table `club`.`profesor`
 		-- -----------------------------------------------------
-		
-
 		CREATE TABLE IF NOT EXISTS `club`.`profesor` (
-		  `id` INT NOT NULL,
+		  `id` INT NOT NULL AUTO_INCREMENT,  
 		  `especialidad` VARCHAR(45) NULL,
 		  `asistencia` VARCHAR(45) NULL,
-		  `sueldo_mensual` DECIMAL NULL,
+		  `sueldo_mensual` DECIMAL(10,2) NULL, 
 		  `fecha_ingreso` DATE NULL,
 		  `salon_asignado` VARCHAR(45) NULL,
-		  PRIMARY KEY (`id`))
-		ENGINE = InnoDB;
+		  PRIMARY KEY (`id`)
+		) ENGINE = InnoDB;
 
-		
 		-- -----------------------------------------------------
 		-- Table `club`.`actividad`
 		-- -----------------------------------------------------
-		
-
 		CREATE TABLE IF NOT EXISTS `club`.`actividad` (
-		  `id` INT NOT NULL,
-		  `nombre_actividad` VARCHAR(45) NULL,
+		  `id` INT NOT NULL AUTO_INCREMENT, 
+		  `nombre_actividad` VARCHAR(45) NOT NULL,  
 		  `tipo` VARCHAR(45) NULL,
 		  `horario` INT NOT NULL,
 		  `profesor_id` INT NULL,
 		  `cupo_max` INT NOT NULL,
 		  PRIMARY KEY (`id`),
 		  INDEX `profesor_id_idx` (`profesor_id` ASC) VISIBLE,
-		  CONSTRAINT `profesor_id`
+		  CONSTRAINT `fk_actividad_profesor`
 			FOREIGN KEY (`profesor_id`)
 			REFERENCES `club`.`profesor` (`id`)
 			ON DELETE NO ACTION
-			ON UPDATE NO ACTION)
-		ENGINE = InnoDB;
+			ON UPDATE NO ACTION
+		) ENGINE = InnoDB;
 
-		
 		-- -----------------------------------------------------
 		-- Table `club`.`cuota`
 		-- -----------------------------------------------------
-		
-
 		CREATE TABLE IF NOT EXISTS `club`.`cuota` (
-		  `id` INT NOT NULL,
-		  `monto` DECIMAL NOT NULL,
+		  `id` INT NOT NULL AUTO_INCREMENT,  
+		  `socio_id` INT NOT NULL,  
+		  `monto` DECIMAL(10,2) NOT NULL,  
 		  `fecha_emision` DATE NOT NULL,
 		  `fecha_vencimiento` DATE NULL,
-		  `tipo` VARCHAR(45) NULL,
 		  `nombre` VARCHAR(45) NULL,
 		  `apellido` VARCHAR(45) NULL,
-		  `estado` TINYINT NULL,
-		  PRIMARY KEY (`id`))
-		ENGINE = InnoDB;
+		  `estado` TINYINT NULL DEFAULT 0,
+		  PRIMARY KEY (`id`),
+		  INDEX `fk_cuota_socio_idx` (`socio_id` ASC) VISIBLE,
+		  CONSTRAINT `fk_cuota_socio`  
+			FOREIGN KEY (`socio_id`)
+			REFERENCES `club`.`socio` (`id`)
+			ON DELETE NO ACTION
+			ON UPDATE NO ACTION
+		) ENGINE = InnoDB;
 
-		
 		-- -----------------------------------------------------
 		-- Table `club`.`inscripcion`
 		-- -----------------------------------------------------
-		
-
 		CREATE TABLE IF NOT EXISTS `club`.`inscripcion` (
-		  `id` INT NOT NULL,
+		  `id` INT NOT NULL AUTO_INCREMENT,  
 		  `socio_id` INT NULL,
 		  `no_socio_id` INT NULL,
-		  `fecha_inscripcion` DATE NULL,
-		  `estado` TINYINT NULL,
-		  `inscripcioncol` VARCHAR(45) NULL,
+		  `actividad_id` INT NOT NULL,  
+		  `fecha_inscripcion` DATE NOT NULL,  
+		  `estado` TINYINT NULL DEFAULT 1,
+		 
 		  PRIMARY KEY (`id`),
-		  INDEX `socio_id_idx` (`socio_id` ASC) VISIBLE,
-		  INDEX `no_socio_id_idx` (`no_socio_id` ASC) VISIBLE,
-		  CONSTRAINT `socio_id`
+		  INDEX `fk_inscripcion_socio_idx` (`socio_id` ASC) VISIBLE,
+		  INDEX `fk_inscripcion_nosocio_idx` (`no_socio_id` ASC) VISIBLE,
+		  INDEX `fk_inscripcion_actividad_idx` (`actividad_id` ASC) VISIBLE,
+		  CONSTRAINT `fk_inscripcion_socio`  
 			FOREIGN KEY (`socio_id`)
 			REFERENCES `club`.`socio` (`id`)
 			ON DELETE NO ACTION
 			ON UPDATE NO ACTION,
-		  CONSTRAINT `no_socio_id`
+		  CONSTRAINT `fk_inscripcion_nosocio`
 			FOREIGN KEY (`no_socio_id`)
 			REFERENCES `club`.`noSocio` (`id`)
 			ON DELETE NO ACTION
-			ON UPDATE NO ACTION)
-		ENGINE = InnoDB;
+			ON UPDATE NO ACTION,
+		  CONSTRAINT `fk_inscripcion_actividad`
+			FOREIGN KEY (`actividad_id`)
+			REFERENCES `club`.`actividad` (`id`)
+			ON DELETE NO ACTION
+			ON UPDATE NO ACTION,
+		  CONSTRAINT `chk_inscripcion_participante` 
+			CHECK ((socio_id IS NOT NULL AND no_socio_id IS NULL) OR 
+				   (socio_id IS NULL AND no_socio_id IS NOT NULL))
+		) ENGINE = InnoDB;
 
-		SET FOREIGN_KEY_CHECKS = 1;
-		";
+		SET FOREIGN_KEY_CHECKS = 1;";
+
 
 		//en estos scripts van los datos iniciales para la BBDD
 		public static string InsertInitialData => @"
