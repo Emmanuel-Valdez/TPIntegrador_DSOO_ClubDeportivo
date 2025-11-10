@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace FormularioLogin
+{
+    public partial class FrmInicio : Form
+    {
+        public FrmInicio()
+        {
+            InitializeComponent();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FrmRegistro frmRegistro = new FrmRegistro(this);
+            frmRegistro.Show();
+            this.Hide();
+        }
+
+        private void FrmInicio_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pcuota_Click(object sender, EventArgs e)
+        {
+			FrmPagoCuota frmPagoCuota = new FrmPagoCuota(this);
+			frmPagoCuota.Show();
+			this.Hide();
+		}
+
+		private void vcuotas_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void activ_Click(object sender, EventArgs e)
+		{
+
+		}
+	}
+}
