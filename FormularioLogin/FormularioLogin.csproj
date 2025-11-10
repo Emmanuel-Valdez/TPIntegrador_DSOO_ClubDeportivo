@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\DatabaseHelper.cs" />
+    <Compile Include="Data\DBScriptsCreate.cs" />
     <Compile Include="FrmRegistro.cs">
       <SubType>Form</SubType>
     </Compile>

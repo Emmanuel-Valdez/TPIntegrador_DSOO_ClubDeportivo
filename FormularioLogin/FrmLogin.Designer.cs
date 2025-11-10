@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.btnCreateDatabase = new System.Windows.Forms.Button();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.textBox2 = new System.Windows.Forms.TextBox();
@@ -36,16 +37,30 @@
 			this.button1 = new System.Windows.Forms.Button();
 			this.textBoxUsuario = new System.Windows.Forms.TextBox();
 			this.textBoxContraseña = new System.Windows.Forms.TextBox();
+			this.lblStatus = new System.Windows.Forms.Label();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// panel1
 			// 
 			this.panel1.BackColor = System.Drawing.Color.DarkCyan;
+			this.panel1.Controls.Add(this.lblStatus);
+			this.panel1.Controls.Add(this.btnCreateDatabase);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
 			this.panel1.Location = new System.Drawing.Point(0, 0);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(250, 330);
 			this.panel1.TabIndex = 0;
+			// 
+			// btnCreateDatabase
+			// 
+			this.btnCreateDatabase.Location = new System.Drawing.Point(52, 35);
+			this.btnCreateDatabase.Name = "btnCreateDatabase";
+			this.btnCreateDatabase.Size = new System.Drawing.Size(75, 23);
+			this.btnCreateDatabase.TabIndex = 0;
+			this.btnCreateDatabase.Text = "Crear BD";
+			this.btnCreateDatabase.UseVisualStyleBackColor = true;
+			this.btnCreateDatabase.Click += new System.EventHandler(this.btnCreateDatabase_Click);
 			// 
 			// flowLayoutPanel1
 			// 
@@ -80,7 +95,7 @@
 			this.textBox2.Size = new System.Drawing.Size(413, 19);
 			this.textBox2.TabIndex = 4;
 			this.textBox2.Text = "CONTRASEÑA";
-			this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+			
 			// 
 			// label1
 			// 
@@ -92,7 +107,6 @@
 			this.label1.Size = new System.Drawing.Size(98, 32);
 			this.label1.TabIndex = 5;
 			this.label1.Text = "LOGIN";
-			this.label1.Click += new System.EventHandler(this.label1_Click);
 			// 
 			// button1
 			// 
@@ -116,7 +130,7 @@
 			this.textBoxUsuario.Name = "textBoxUsuario";
 			this.textBoxUsuario.Size = new System.Drawing.Size(150, 20);
 			this.textBoxUsuario.TabIndex = 7;
-			this.textBoxUsuario.TextChanged += new System.EventHandler(this.textBoxUsuario_TextChanged);
+			
 			// 
 			// textBoxContraseña
 			// 
@@ -124,9 +138,18 @@
 			this.textBoxContraseña.Name = "textBoxContraseña";
 			this.textBoxContraseña.Size = new System.Drawing.Size(150, 20);
 			this.textBoxContraseña.TabIndex = 8;
-			this.textBoxContraseña.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+			
 			this.textBoxContraseña.Enter += new System.EventHandler(this.textBoxContraseña_Enter);
 			this.textBoxContraseña.Leave += new System.EventHandler(this.textBoxContraseña_Leave);
+			// 
+			// lblStatus
+			// 
+			this.lblStatus.AutoSize = true;
+			this.lblStatus.Location = new System.Drawing.Point(52, 81);
+			this.lblStatus.Name = "lblStatus";
+			this.lblStatus.Size = new System.Drawing.Size(37, 13);
+			this.lblStatus.TabIndex = 1;
+			this.lblStatus.Text = "Status";
 			// 
 			// FrmLogin
 			// 
@@ -147,6 +170,8 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Form1";
 			this.Load += new System.EventHandler(this.FrmLogin_Load);
+			this.panel1.ResumeLayout(false);
+			this.panel1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -162,6 +187,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBoxUsuario;
         private System.Windows.Forms.TextBox textBoxContraseña;
-    }
+		private System.Windows.Forms.Button btnCreateDatabase;
+		private System.Windows.Forms.Label lblStatus;
+	}
 }
 

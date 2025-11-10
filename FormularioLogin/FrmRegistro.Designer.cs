@@ -1,4 +1,6 @@
-﻿namespace FormularioLogin
+﻿using System.Windows.Forms;
+
+namespace FormularioLogin
 {
     partial class FrmRegistro
     {
@@ -40,7 +42,6 @@
 			this.textBoxDNI = new System.Windows.Forms.TextBox();
 			this.textBoxEmail = new System.Windows.Forms.TextBox();
 			this.dateTimeNac = new System.Windows.Forms.DateTimePicker();
-			this.textBoxTipo = new System.Windows.Forms.TextBox();
 			this.button1 = new System.Windows.Forms.Button();
 			this.label7 = new System.Windows.Forms.Label();
 			this.dateTimeEmision = new System.Windows.Forms.DateTimePicker();
@@ -124,7 +125,7 @@
 			this.textBoxNombre.Name = "textBoxNombre";
 			this.textBoxNombre.Size = new System.Drawing.Size(435, 20);
 			this.textBoxNombre.TabIndex = 9;
-			this.textBoxNombre.TextChanged += new System.EventHandler(this.textBoxNombre_TextChanged);
+			
 			// 
 			// textBoxApellido
 			// 
@@ -140,7 +141,7 @@
 			this.textBoxDNI.Name = "textBoxDNI";
 			this.textBoxDNI.Size = new System.Drawing.Size(481, 20);
 			this.textBoxDNI.TabIndex = 11;
-			this.textBoxDNI.TextChanged += new System.EventHandler(this.textBoxDNI_TextChanged);
+			
 			// 
 			// textBoxEmail
 			// 
@@ -148,7 +149,7 @@
 			this.textBoxEmail.Name = "textBoxEmail";
 			this.textBoxEmail.Size = new System.Drawing.Size(466, 20);
 			this.textBoxEmail.TabIndex = 12;
-			this.textBoxEmail.TextChanged += new System.EventHandler(this.textBoxEmail_TextChanged);
+			
 			// 
 			// dateTimeNac
 			// 
@@ -157,14 +158,6 @@
 			this.dateTimeNac.Size = new System.Drawing.Size(215, 20);
 			this.dateTimeNac.TabIndex = 13;
 			this.dateTimeNac.ValueChanged += new System.EventHandler(this.dateTimeNac_ValueChanged);
-			// 
-			// textBoxTipo
-			// 
-			this.textBoxTipo.Location = new System.Drawing.Point(503, 331);
-			this.textBoxTipo.Name = "textBoxTipo";
-			this.textBoxTipo.Size = new System.Drawing.Size(139, 20);
-			this.textBoxTipo.TabIndex = 15;
-			this.textBoxTipo.TextChanged += new System.EventHandler(this.textBoxTipo_TextChanged);
 			// 
 			// button1
 			// 
@@ -205,13 +198,16 @@
 			// 
 			// comboBoxTipo
 			// 
+			this.comboBoxTipo.DropDownHeight = 150;
+			this.comboBoxTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBoxTipo.FormattingEnabled = true;
-			this.comboBoxTipo.Location = new System.Drawing.Point(679, 333);
+			this.comboBoxTipo.IntegralHeight = false;
+			this.comboBoxTipo.Location = new System.Drawing.Point(521, 333);
 			this.comboBoxTipo.MaxDropDownItems = 2;
 			this.comboBoxTipo.Name = "comboBoxTipo";
 			this.comboBoxTipo.Size = new System.Drawing.Size(121, 21);
 			this.comboBoxTipo.TabIndex = 20;
-			this.comboBoxTipo.SelectedIndexChanged += new System.EventHandler(this.comboBoxTipo_SelectedIndexChanged);
+			this.comboBoxTipo.SelectedIndexChanged += new System.EventHandler(this.comboBoxTipo_SelectedIndexChanged_1);
 			// 
 			// FrmRegistro
 			// 
@@ -224,7 +220,6 @@
 			this.Controls.Add(this.dateTimeEmision);
 			this.Controls.Add(this.label7);
 			this.Controls.Add(this.button1);
-			this.Controls.Add(this.textBoxTipo);
 			this.Controls.Add(this.dateTimeNac);
 			this.Controls.Add(this.textBoxEmail);
 			this.Controls.Add(this.textBoxDNI);
@@ -259,7 +254,6 @@
         private System.Windows.Forms.TextBox textBoxDNI;
         private System.Windows.Forms.TextBox textBoxEmail;
         private System.Windows.Forms.DateTimePicker dateTimeNac;
-        private System.Windows.Forms.TextBox textBoxTipo;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DateTimePicker dateTimeEmision;

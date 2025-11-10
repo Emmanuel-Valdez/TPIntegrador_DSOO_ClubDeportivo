@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿
+using System;
 using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 
 namespace FormularioLogin
 {
     public partial class FrmLogin : Form
     {
-        public FrmLogin()
+		private DatabaseHelper dbHelper;
+		public FrmLogin()
         {
             InitializeComponent();
+            dbHelper = new DatabaseHelper();
         }
-
-        private void FrmLogin_Load(object sender, EventArgs e)
+		
+		private void FrmLogin_Load(object sender, EventArgs e)
         {
 
         }
@@ -27,12 +23,6 @@ namespace FormularioLogin
         {
            
         }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             // Esto es para asegurar que las cajas de textos no estén vacias
@@ -56,9 +46,6 @@ namespace FormularioLogin
                 textBoxUsuario.Clear();
                 textBoxUsuario.Focus();
             }
-            {
-
-            }
         }
 
         private void textBoxContraseña_Enter(object sender, EventArgs e)
@@ -74,19 +61,40 @@ namespace FormularioLogin
             }
         }
 
-        private void textBoxUsuario_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxContraseña_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-		private void label1_Click(object sender, EventArgs e)
+		private void btnCreateDatabase_Click(object sender, EventArgs e)
 		{
+			try
+			{
+				// Deshabilitar el botón durante la operación
+				btnCreateDatabase.Enabled = false;
+				btnCreateDatabase.Text = "Creando BD...";
 
+				// Usar Task.Run para no bloquear la UI
+				Task.Run(() =>
+				{
+					bool success = dbHelper.CreateDatabase();
+
+					// Volver a habilitar el botón en el hilo de UI
+					this.Invoke(new Action(() =>
+					{
+						btnCreateDatabase.Enabled = true;
+						btnCreateDatabase.Text = "Crear Base de Datos";
+
+						if (success)
+						{
+							// Opcional: actualizar algún label o status
+							lblStatus.Text = "Base de datos creada - " + DateTime.Now.ToString();
+						}
+					}));
+				});
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Error: {ex.Message}");
+				btnCreateDatabase.Enabled = true;
+				btnCreateDatabase.Text = "Crear Base de Datos";
+			}
 		}
 	}
+	
 }
