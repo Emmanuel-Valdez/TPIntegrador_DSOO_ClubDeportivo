@@ -25,5 +25,34 @@ namespace FormularioLogin
 			this.Close();
 		}
 
-	}
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+			//agregar buscar por dni
+        }
+
+        private void FrmPagoCuota_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtDniId_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblDniId_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

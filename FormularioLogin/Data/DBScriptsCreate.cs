@@ -130,23 +130,24 @@ namespace FormularioLogin.Data
 		-- -----------------------------------------------------
 		-- Table `club`.`cuota`
 		-- -----------------------------------------------------
-		CREATE TABLE IF NOT EXISTS `club`.`cuota` (
-		  `id` INT NOT NULL AUTO_INCREMENT,  
-		  `socio_id` INT NOT NULL,  
-		  `monto` DECIMAL(10,2) NOT NULL,  
-		  `fecha_emision` DATE NOT NULL,
-		  `fecha_vencimiento` DATE NULL,
-		  `nombre` VARCHAR(45) NULL,
-		  `apellido` VARCHAR(45) NULL,
-		  `estado` TINYINT NULL DEFAULT 0,
-		  PRIMARY KEY (`id`),
-		  INDEX `fk_cuota_socio_idx` (`socio_id` ASC) VISIBLE,
-		  CONSTRAINT `fk_cuota_socio`  
-			FOREIGN KEY (`socio_id`)
-			REFERENCES `club`.`socio` (`id`)
-			ON DELETE NO ACTION
-			ON UPDATE NO ACTION
-		) ENGINE = InnoDB;
+		CREATE TABLE `cuota` (
+				`id` int NOT NULL AUTO_INCREMENT,
+				`socio_id` int DEFAULT NULL,
+				`monto` decimal(10,2) NOT NULL,
+				`fecha_emision` date NOT NULL,
+				`fecha_vencimiento` date DEFAULT NULL,
+				`nombre` varchar(45) DEFAULT NULL,
+				`apellido` varchar(45) DEFAULT NULL,
+				`estado` tinyint DEFAULT '0',
+				`no_socio_id` int DEFAULT NULL,
+				`es_socio` tinyint NOT NULL DEFAULT '0',
+				PRIMARY KEY (`id`),
+				KEY `fk_socio_id_idx` (`socio_id`),
+				KEY `fk_no_socio_id_idx` (`no_socio_id`),
+				CONSTRAINT `fk_no_socio_id` FOREIGN KEY (`no_socio_id`) REFERENCES `noSocio` (`id`),
+				CONSTRAINT `fk_socio_id` FOREIGN KEY (`socio_id`) REFERENCES `socio` (`id`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
 
 		-- -----------------------------------------------------
 		-- Table `club`.`inscripcion`
