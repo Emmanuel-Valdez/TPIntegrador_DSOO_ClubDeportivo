@@ -187,19 +187,19 @@ namespace FormularioLogin.Data
 		SET FOREIGN_KEY_CHECKS = 1;";
 
 
-		//en estos scripts van los datos iniciales para la BBDD
-		public static string InsertInitialData => @"
-		USE club;
-		
-		INSERT INTO Rol (name) VALUES ('Admin');
+        //en estos scripts van los datos iniciales para la BBDD
+        public static string InsertInitialData => @"
+			USE `club`;
 
-		INSERT INTO Usuario (Nombre, Email, contrasenia) VALUES 
-		('admin', 'admin@sistema.com','admin')
-		;
-		";
+			INSERT INTO `club`.`rol` (name) VALUES ('Admin');
 
+			INSERT INTO `club`.`usuario` (nombre, email, contrasenia, rol_id)
+			VALUES ('admin', 'admin@sistema.com', 'admin', 1);
+			";
 
 
-	}
+
+
+    }
 
 }
