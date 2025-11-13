@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient; // Acuerdensen que para que esto funcione tienen que hacer click derecho en 
+﻿using MySqlConnector;
 using System;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
