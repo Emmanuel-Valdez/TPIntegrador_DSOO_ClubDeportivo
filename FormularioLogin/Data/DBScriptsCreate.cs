@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace FormularioLogin.Data
 {
 	public class DBScriptsCreate
@@ -11,39 +6,39 @@ namespace FormularioLogin.Data
 
 		public static string CreateDatabase => @"
 		
-		-- Schema club
+		-- Schema u462690221_club
 		-- -----------------------------------------------------
-		CREATE SCHEMA IF NOT EXISTS `club` DEFAULT CHARACTER SET utf8 ;
-		USE `club` ;
+		CREATE SCHEMA IF NOT EXISTS `u462690221_club` DEFAULT CHARACTER SET utf8 ;
+		USE `u462690221_club` ;
 		SET FOREIGN_KEY_CHECKS = 0;
 		";
 
 		public static string CreateTables => @"
 
-		USE club;
+		USE u462690221_club;
 
-		DROP TABLE IF EXISTS `club`.`cuota`;
-		DROP TABLE IF EXISTS `club`.`inscripcion`;
-		DROP TABLE IF EXISTS `club`.`actividad`;
-		DROP TABLE IF EXISTS `club`.`profesor`;
-		DROP TABLE IF EXISTS `club`.`noSocio`;
-		DROP TABLE IF EXISTS `club`.`socio`;
-		DROP TABLE IF EXISTS `club`.`usuario`;
-		DROP TABLE IF EXISTS `club`.`rol`;
+		DROP TABLE IF EXISTS `u462690221_club`.`cuota`;
+		DROP TABLE IF EXISTS `u462690221_club`.`inscripcion`;
+		DROP TABLE IF EXISTS `u462690221_club`.`actividad`;
+		DROP TABLE IF EXISTS `u462690221_club`.`profesor`;
+		DROP TABLE IF EXISTS `u462690221_club`.`noSocio`;
+		DROP TABLE IF EXISTS `u462690221_club`.`socio`;
+		DROP TABLE IF EXISTS `u462690221_club`.`usuario`;
+		DROP TABLE IF EXISTS `u462690221_club`.`rol`;
 
 		-- -----------------------------------------------------
-		-- Table `club`.`rol`
+		-- Table `u462690221_club`.`rol`
 		-- -----------------------------------------------------
-		CREATE TABLE IF NOT EXISTS `club`.`rol` (
+		CREATE TABLE IF NOT EXISTS `u462690221_club`.`rol` (
 		  `id` INT NOT NULL AUTO_INCREMENT,
 		  `name` VARCHAR(255) NOT NULL,
 		  PRIMARY KEY (`id`)
 		) ENGINE = InnoDB;
 
 		-- -----------------------------------------------------
-		-- Table `club`.`usuario`
+		-- Table `u462690221_club`.`usuario`
 		-- -----------------------------------------------------
-		CREATE TABLE IF NOT EXISTS `club`.`usuario` (
+		CREATE TABLE IF NOT EXISTS `u462690221_club`.`usuario` (
 		  `id` INT NOT NULL AUTO_INCREMENT,
 		  `nombre` VARCHAR(45) NOT NULL,
 		  `email` VARCHAR(45) NOT NULL,
@@ -57,15 +52,15 @@ namespace FormularioLogin.Data
 		  INDEX `fk_rol_idx` (`rol_id` ASC) VISIBLE,
 		  CONSTRAINT `fk_rol`
 			FOREIGN KEY (`rol_id`)
-			REFERENCES `club`.`rol` (`id`)
+			REFERENCES `u462690221_club`.`rol` (`id`)
 			ON DELETE NO ACTION
 			ON UPDATE NO ACTION
 		) ENGINE = InnoDB;
 
 		-- -----------------------------------------------------
-		-- Table `club`.`socio`
+		-- Table `u462690221_club`.`socio`
 		-- -----------------------------------------------------
-		CREATE TABLE IF NOT EXISTS `club`.`socio` (
+		CREATE TABLE IF NOT EXISTS `u462690221_club`.`socio` (
 		  `id` INT NOT NULL AUTO_INCREMENT,
 		  `nombre` VARCHAR(45) NOT NULL,
 		  `apellido` VARCHAR(45) NOT NULL,
@@ -81,9 +76,9 @@ namespace FormularioLogin.Data
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 		-- -----------------------------------------------------
-		-- Table `club`.`noSocio`
+		-- Table `u462690221_club`.`noSocio`
 		-- -----------------------------------------------------
-		CREATE TABLE IF NOT EXISTS `club`.`noSocio` (
+		CREATE TABLE IF NOT EXISTS `u462690221_club`.`noSocio` (
 		  `id` INT NOT NULL AUTO_INCREMENT,
 		  `nombre` VARCHAR(45) NOT NULL,
 		  `apellido` VARCHAR(45) NOT NULL,
@@ -96,9 +91,9 @@ namespace FormularioLogin.Data
 		) ENGINE = InnoDB;
 
 		-- -----------------------------------------------------
-		-- Table `club`.`profesor`
+		-- Table `u462690221_club`.`profesor`
 		-- -----------------------------------------------------
-		CREATE TABLE IF NOT EXISTS `club`.`profesor` (
+		CREATE TABLE IF NOT EXISTS `u462690221_club`.`profesor` (
 		  `id` INT NOT NULL AUTO_INCREMENT,  
 		  `especialidad` VARCHAR(45) NULL,
 		  `asistencia` VARCHAR(45) NULL,
@@ -109,9 +104,9 @@ namespace FormularioLogin.Data
 		) ENGINE = InnoDB;
 
 		-- -----------------------------------------------------
-		-- Table `club`.`actividad`
+		-- Table `u462690221_club`.`actividad`
 		-- -----------------------------------------------------
-		CREATE TABLE IF NOT EXISTS `club`.`actividad` (
+		CREATE TABLE IF NOT EXISTS `u462690221_club`.`actividad` (
 		  `id` INT NOT NULL AUTO_INCREMENT, 
 		  `nombre_actividad` VARCHAR(45) NOT NULL,  
 		  `tipo` VARCHAR(45) NULL,
@@ -122,15 +117,15 @@ namespace FormularioLogin.Data
 		  INDEX `profesor_id_idx` (`profesor_id` ASC) VISIBLE,
 		  CONSTRAINT `fk_actividad_profesor`
 			FOREIGN KEY (`profesor_id`)
-			REFERENCES `club`.`profesor` (`id`)
+			REFERENCES `u462690221_club`.`profesor` (`id`)
 			ON DELETE NO ACTION
 			ON UPDATE NO ACTION
 		) ENGINE = InnoDB;
 
 		-- -----------------------------------------------------
-		-- Table `club`.`cuota`
+		-- Table `u462690221_club`.`cuota`
 		-- -----------------------------------------------------
-		CREATE TABLE IF NOT EXISTS `club`.`cuota` (
+		CREATE TABLE IF NOT EXISTS `u462690221_club`.`cuota` (
 		  `id` INT NOT NULL AUTO_INCREMENT,  
 		  `socio_id` INT NOT NULL,  
 		  `monto` DECIMAL(10,2) NOT NULL,  
@@ -143,15 +138,15 @@ namespace FormularioLogin.Data
 		  INDEX `fk_cuota_socio_idx` (`socio_id` ASC) VISIBLE,
 		  CONSTRAINT `fk_cuota_socio`  
 			FOREIGN KEY (`socio_id`)
-			REFERENCES `club`.`socio` (`id`)
+			REFERENCES `u462690221_club`.`socio` (`id`)
 			ON DELETE NO ACTION
 			ON UPDATE NO ACTION
 		) ENGINE = InnoDB;
 
 		-- -----------------------------------------------------
-		-- Table `club`.`inscripcion`
+		-- Table `u462690221_club`.`inscripcion`
 		-- -----------------------------------------------------
-		CREATE TABLE IF NOT EXISTS `club`.`inscripcion` (
+		CREATE TABLE IF NOT EXISTS `u462690221_club`.`inscripcion` (
 		  `id` INT NOT NULL AUTO_INCREMENT,  
 		  `socio_id` INT NULL,
 		  `no_socio_id` INT NULL,
@@ -165,17 +160,17 @@ namespace FormularioLogin.Data
 		  INDEX `fk_inscripcion_actividad_idx` (`actividad_id` ASC) VISIBLE,
 		  CONSTRAINT `fk_inscripcion_socio`  
 			FOREIGN KEY (`socio_id`)
-			REFERENCES `club`.`socio` (`id`)
+			REFERENCES `u462690221_club`.`socio` (`id`)
 			ON DELETE NO ACTION
 			ON UPDATE NO ACTION,
 		  CONSTRAINT `fk_inscripcion_nosocio`
 			FOREIGN KEY (`no_socio_id`)
-			REFERENCES `club`.`noSocio` (`id`)
+			REFERENCES `u462690221_club`.`noSocio` (`id`)
 			ON DELETE NO ACTION
 			ON UPDATE NO ACTION,
 		  CONSTRAINT `fk_inscripcion_actividad`
 			FOREIGN KEY (`actividad_id`)
-			REFERENCES `club`.`actividad` (`id`)
+			REFERENCES `u462690221_club`.`actividad` (`id`)
 			ON DELETE NO ACTION
 			ON UPDATE NO ACTION,
 		  CONSTRAINT `chk_inscripcion_participante` 
@@ -187,14 +182,12 @@ namespace FormularioLogin.Data
 
 
 		//en estos scripts van los datos iniciales para la BBDD
-		public static string InsertInitialData => @"
-		USE club;
 		
-		INSERT INTO Rol (name) VALUES ('Admin');
+		public static string InsertInitialData => @"
+		INSERT INTO u462690221_club.rol(name) VALUES('Admin');
 
-		INSERT INTO Usuario (Nombre, Email, contrasenia) VALUES 
-		('admin', 'admin@sistema.com','admin')
-		;
+		INSERT INTO u462690221_club.usuario(Nombre, Email, contrasenia) VALUES
+		('admin', 'admin@sistema.com','admin');
 		";
 
 

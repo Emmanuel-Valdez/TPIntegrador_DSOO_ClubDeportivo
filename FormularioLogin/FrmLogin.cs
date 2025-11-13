@@ -53,31 +53,6 @@ namespace FormularioLogin
 
 			}
 
-
-
-
-
-			//// Esto es para asegurar que las cajas de textos no estén vacias
-			//if (string.IsNullOrWhiteSpace(textBoxEmail.Text) || string.IsNullOrWhiteSpace(textBoxContrasenia.Text))
-   //         {
-   //             MessageBox.Show("Por favor, ingresar usuario y contraseña.", "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-   //             return;
-   //         }
-
-   //         else if (textBoxEmail.Text == "admin" && textBoxContrasenia.Text == "admin")
-   //         {
-   //             // Si el usuario y la contraseña son correctos, abrir el formulario de inicio
-   //             FrmInicio frminicio = new FrmInicio();
-   //             frminicio.Show();
-   //             this.Hide();
-   //         }
-   //         else
-   //         {
-   //             MessageBox.Show("Usuario o contraseña incorrectos.", "Error de Autenticación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-   //             textBoxContrasenia.Clear();
-   //             textBoxEmail.Clear();
-   //             textBoxEmail.Focus();
-   //         }
         }
 
         private void textBoxContraseña_Enter(object sender, EventArgs e)
