@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\ConfigurationManager.cs" />
     <Compile Include="Data\DatabaseHelper.cs" />
     <Compile Include="Data\DBScriptsCreate.cs" />
     <Compile Include="FrmRegistro.cs">
@@ -156,6 +157,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include=".env" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
