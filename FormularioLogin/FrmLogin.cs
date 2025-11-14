@@ -1,5 +1,4 @@
 ﻿
-
 using MySql.Data.MySqlClient;
 using System;
 using System.Data;
@@ -107,7 +106,6 @@ namespace FormularioLogin
 		{
 			try
 			{
-				// Versión simple sin JOIN
 				string query = "SELECT id, nombre, email, rol_id FROM usuario WHERE email = @email AND contrasenia = @password AND activo = 1";
 
 				MySqlParameter[] parameters = {
@@ -124,9 +122,6 @@ namespace FormularioLogin
 					UsuarioActual.Id = Convert.ToInt32(usuario["id"]);
 					UsuarioActual.Nombre = usuario["nombre"].ToString();
 					UsuarioActual.Email = usuario["email"].ToString();
-					
-
-					
 					return true;
 				}
 
