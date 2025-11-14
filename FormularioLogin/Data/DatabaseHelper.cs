@@ -1,5 +1,7 @@
-﻿using FormularioLogin.Data;
-using MySqlConnector;
+﻿using FormularioLogin.Configurations;
+using FormularioLogin.Data;
+using MySql.Data.MySqlClient;
+
 using System;
 using System.Data;
 using System.Windows.Forms;
@@ -9,8 +11,7 @@ namespace FormularioLogin
 	public  class DatabaseHelper
 	{
 		// Leer la cadena de conexión desde App.config
-		private static string connectionString =
-			System.Configuration.ConfigurationManager.ConnectionStrings["MiConexion"].ConnectionString;
+		private static string connectionString = AppConfiguration.GetConnectionString();
 
 		// Método para ejecutar consultas (INSERT, UPDATE, DELETE)
 		public static int ExecuteNonQuery(string query, params MySqlParameter[] parameters)
@@ -79,7 +80,8 @@ namespace FormularioLogin
 			// Usar una sola conexión para todos los scripts
 			
 			//using (MySqlConnection connection = new MySqlConnection("Server=localhost;Uid=root;Pwd=;"))
-			using (MySqlConnection connection = new MySqlConnection(connectionString = "Server=;Port=;Uid=;Pwd=;SslMode=None;CharSet=utf8mb4;ConnectionTimeout=15;DefaultCommandTimeout=30;"))
+			using (MySqlConnection connection = 
+				new MySqlConnection(connectionString = $"Server={AppConfiguration.DatabaseServer};Port={AppConfiguration.DatabasePort};Uid={AppConfiguration.DatabaseUser};Pwd={AppConfiguration.DatabasePassword};SslMode=Disabled;CharSet=utf8mb4;ConnectionTimeout=15;DefaultCommandTimeout=30;"))
 			{
 				connection.Open();
 
