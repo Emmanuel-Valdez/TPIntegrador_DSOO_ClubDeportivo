@@ -28,7 +28,7 @@ namespace FormularioLogin.Configurations
 
 		public static string GetConnectionString()
 		{
-			return $"Server={DatabaseServer};Port={DatabasePort};Database={DatabaseName};Uid={DatabaseUser};Password={DatabasePassword};SslMode=None;CharSet=utf8mb4;ConnectionTimeout=15;DefaultCommandTimeout=30;";
+			return $"Server={DatabaseServer};Port={DatabasePort};Database={DatabaseName};Uid={DatabaseUser};Password={DatabasePassword};SslMode=Disabled;CharSet=utf8mb4;ConnectionTimeout=15;DefaultCommandTimeout=30;";
 		}
 	}
 }
