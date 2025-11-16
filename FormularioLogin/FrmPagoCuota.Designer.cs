@@ -174,7 +174,7 @@ namespace FormularioLogin
 			// 
 			this.lblVencimiento.AutoSize = true;
 			this.lblVencimiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblVencimiento.Location = new System.Drawing.Point(29, 282);
+			this.lblVencimiento.Location = new System.Drawing.Point(30, 282);
 			this.lblVencimiento.Name = "lblVencimiento";
 			this.lblVencimiento.Size = new System.Drawing.Size(80, 13);
 			this.lblVencimiento.TabIndex = 16;
@@ -271,7 +271,7 @@ namespace FormularioLogin
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.PapayaWhip;
-			this.ClientSize = new System.Drawing.Size(662, 552);
+			this.ClientSize = new System.Drawing.Size(516, 426);
 			this.Controls.Add(this.lblFechaVencimiento);
 			this.Controls.Add(this.lblFechaEmision);
 			this.Controls.Add(this.cBActividades);
