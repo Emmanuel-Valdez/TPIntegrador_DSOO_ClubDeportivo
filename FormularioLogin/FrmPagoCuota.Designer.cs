@@ -54,6 +54,8 @@ namespace FormularioLogin
 			this.cBActividades = new System.Windows.Forms.ComboBox();
 			this.lblFechaEmision = new System.Windows.Forms.Label();
 			this.lblFechaVencimiento = new System.Windows.Forms.Label();
+			this.lblPrimerPagoValor = new System.Windows.Forms.Label();
+			this.lblPrimerPago = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// lblTitulo
@@ -174,7 +176,7 @@ namespace FormularioLogin
 			// 
 			this.lblVencimiento.AutoSize = true;
 			this.lblVencimiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblVencimiento.Location = new System.Drawing.Point(29, 282);
+			this.lblVencimiento.Location = new System.Drawing.Point(30, 282);
 			this.lblVencimiento.Name = "lblVencimiento";
 			this.lblVencimiento.Size = new System.Drawing.Size(80, 13);
 			this.lblVencimiento.TabIndex = 16;
@@ -266,12 +268,33 @@ namespace FormularioLogin
 			this.lblFechaVencimiento.TabIndex = 31;
 			this.lblFechaVencimiento.Text = "-";
 			// 
+			// lblPrimerPagoValor
+			// 
+			this.lblPrimerPagoValor.AutoSize = true;
+			this.lblPrimerPagoValor.Location = new System.Drawing.Point(134, 308);
+			this.lblPrimerPagoValor.Name = "lblPrimerPagoValor";
+			this.lblPrimerPagoValor.Size = new System.Drawing.Size(10, 13);
+			this.lblPrimerPagoValor.TabIndex = 32;
+			this.lblPrimerPagoValor.Text = "-";
+			// 
+			// lblPrimerPago
+			// 
+			this.lblPrimerPago.AutoSize = true;
+			this.lblPrimerPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblPrimerPago.Location = new System.Drawing.Point(30, 308);
+			this.lblPrimerPago.Name = "lblPrimerPago";
+			this.lblPrimerPago.Size = new System.Drawing.Size(82, 13);
+			this.lblPrimerPago.TabIndex = 33;
+			this.lblPrimerPago.Text = "Primer Pago?";
+			// 
 			// FrmPagoCuota
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.PapayaWhip;
 			this.ClientSize = new System.Drawing.Size(662, 552);
+			this.Controls.Add(this.lblPrimerPago);
+			this.Controls.Add(this.lblPrimerPagoValor);
 			this.Controls.Add(this.lblFechaVencimiento);
 			this.Controls.Add(this.lblFechaEmision);
 			this.Controls.Add(this.cBActividades);
@@ -330,5 +353,7 @@ namespace FormularioLogin
 		private System.Windows.Forms.ComboBox cBActividades;
 		private System.Windows.Forms.Label lblFechaEmision;
 		private System.Windows.Forms.Label lblFechaVencimiento;
+		private Label lblPrimerPagoValor;
+		private Label lblPrimerPago;
 	}
 }

@@ -19,8 +19,8 @@ namespace FormularioLogin
 		private List<ActividadPrecios> _actividades = new List<ActividadPrecios>();
 		private bool _esSocio = false;
 		private ActividadPrecios _actividadSeleccionada;
-		private dynamic _persona; 
-		
+		private dynamic _persona;
+
 		public FrmPagoCuota(Form formInicio)
 		{
 			InitializeComponent();
@@ -33,14 +33,14 @@ namespace FormularioLogin
 			this.Close();
 		}
 
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-			
+		private void btnBuscar_Click(object sender, EventArgs e)
+		{
+
 			btnRegistrarPago.Enabled = false;
 			_persona = BuscarPersonaPorDni(txtDniId.Text);
 			if (!_persona.Encontrado)
 			{
-				MessageBox.Show($"Persona no encontrada");
+				MessageBox.Show($"Persona no encontrada, reintente ingresando un DNI válido");
 				return;
 			}
 
@@ -51,21 +51,22 @@ namespace FormularioLogin
 				lblApellidoValor.Text = _persona.Apellido;
 				lblMiembroValor.Text = _persona.CreateTime.ToString("dd/MM/yyyy");
 				cBActividades.Enabled = true;
-				
+
 				ObtenerActividadesConPrecios();
 				CargarActividadesEnComboBox(cBActividades);
 				cBActividades.SelectedIndex = -1;
 				cBActividades.Text = "Seleccione una actividad";
 
 				lblFechaEmision.Text = _fechaEmision.ToString("dd/MM/yyyy");
-				
+
 
 				if (_persona.Tipo == "socio")
 				{
-					_esSocio= true;
-					
+					_esSocio = true;
+
 					lblFechaVencimiento.Text = _fechaVencimiento.ToString("dd/MM/yyyy");
-				
+
+
 				}
 				else if (_persona.Tipo == "noSocio")
 				{
@@ -74,12 +75,12 @@ namespace FormularioLogin
 
 				}
 			}
-			
+
 		}
 
-        private void FrmPagoCuota_Load(object sender, EventArgs e)
-        {
-			
+		private void FrmPagoCuota_Load(object sender, EventArgs e)
+		{
+
 			cBActividades.Enabled = false;
 			btnRegistrarPago.Enabled = false;
 			ObtenerFechas();
@@ -99,6 +100,12 @@ namespace FormularioLogin
 				MessageBox.Show("Por favor, seleccione una actividad y verifique los datos del usuario.");
 				return;
 			}
+			// Verificar si es primera cuota
+
+			var infoCarnet = VerificarPrimeraCuotaYGenerarCarnet(_persona.Id);
+
+
+
 
 			DialogResult resultado = MessageBox.Show(
 				$"¿Confirmar pago de {lblMontoValor.Text} para {lblNombreValor.Text} {lblApellidoValor.Text}?",
@@ -113,8 +120,19 @@ namespace FormularioLogin
 				{
 					MessageBox.Show("Pago registrado exitosamente!", "Éxito",
 								  MessageBoxButtons.OK, MessageBoxIcon.Information);
-					FormInicio.Show();
-					this.Close();
+					if (infoCarnet.EsPrimeraCuota)
+					{
+						FrmCarnetSocio frmCarnetSocio = new FrmCarnetSocio(this);
+
+						frmCarnetSocio.Show();
+						this.Hide();
+					}
+					else
+					{
+						FormInicio.Show();
+						this.Close();
+					}
+
 				}
 				else
 				{
@@ -122,8 +140,6 @@ namespace FormularioLogin
 								  MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			}
-
-
 		}
 
 
@@ -165,7 +181,7 @@ namespace FormularioLogin
 						Apellido = persona["apellido"].ToString(),
 						Dni = persona["dni"].ToString(),
 						CreateTime = Convert.ToDateTime(persona["create_time"])
-						
+
 					};
 				}
 
@@ -178,7 +194,7 @@ namespace FormularioLogin
 			}
 		}
 
-		
+
 
 		private List<ActividadPrecios> ObtenerActividadesConPrecios()
 		{
@@ -261,6 +277,9 @@ namespace FormularioLogin
 			{
 				decimal monto = _esSocio ? _actividadSeleccionada.PrecioMensual : _actividadSeleccionada.PrecioDiario;
 
+				var resultadoCarnet = VerificarPrimeraCuotaYGenerarCarnet(_persona.Id);
+				string numeroCarnet = resultadoCarnet.NumeroCarnet;
+
 				string query = @"
             INSERT INTO cuota (
                 socio_id, no_socio_id, monto, fecha_emision, 
@@ -285,7 +304,15 @@ namespace FormularioLogin
 			new MySqlParameter("@es_socio", _esSocio ? 1 : 0)
 		};
 
+
 				int resultado = DatabaseHelper.ExecuteNonQuery(query, parameters);
+
+
+				// Si es primera cuota y es socio, actualizar el campo carnet en la tabla socio
+				if (resultado > 0 && resultadoCarnet.EsPrimeraCuota && _esSocio)
+				{
+					ActualizarCarnetSocio(_persona.Id, numeroCarnet);
+				}
 
 				return resultado > 0;
 			}
@@ -295,10 +322,82 @@ namespace FormularioLogin
 				return false;
 			}
 		}
+		public ResultadoCarnet VerificarPrimeraCuotaYGenerarCarnet(int personaId)
+		{
+
+			try
+			{
+				// Verificar si es la primera cuota
+				string queryVerificar = @"
+            SELECT COUNT(*) as total_cuotas 
+            FROM cuota 
+            WHERE estado = 1 AND ((es_socio = 1 AND socio_id = @personaId))";
+
+				MySqlParameter[] parametersVerificar = {
+			new MySqlParameter("@personaId", personaId)
+		};
+
+				DataTable resultado = DatabaseHelper.ExecuteQuery(queryVerificar, parametersVerificar);
+
+				if (resultado.Rows.Count > 0)
+				{
+					int totalCuotasPagadas = Convert.ToInt32(resultado.Rows[0]["total_cuotas"]);
+
+					if (totalCuotasPagadas == 0)
+					{
+						// Es la primera cuota - generar número de carnet
+
+						string numeroCarnet = GenerarNumeroCarnet(personaId);
+						return new ResultadoCarnet { EsPrimeraCuota = true, NumeroCarnet = numeroCarnet };
+
+					}
+				}
+				return new ResultadoCarnet { EsPrimeraCuota = false, NumeroCarnet = string.Empty };
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Error al verificar primera cuota: {ex.Message}");
+
+				return new ResultadoCarnet { EsPrimeraCuota = false, NumeroCarnet = string.Empty };
+			}
+		}
+
+		private string GenerarNumeroCarnet(int socioId)
+		{
+			// Número de carnet = socio_id + 1000
+			return (socioId + 1000).ToString();
+		}
+
+		private void ActualizarCarnetSocio(int socioId, string numeroCarnet)
+		{
+			try
+			{
+				string queryActualizar = @"
+            UPDATE socio 
+            SET carnet = 1 
+            WHERE id = @socioId";
+
+				MySqlParameter[] parametersActualizar = {
+			new MySqlParameter("@socioId", socioId)
+		};
+
+				DatabaseHelper.ExecuteNonQuery(queryActualizar, parametersActualizar);
+
+				// Mostrar mensaje del carnet generado
+				MessageBox.Show($"¡Primera cuota pagada! Número de carnet asignado: {numeroCarnet}",
+							  "Carnet Generado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Error al actualizar carnet: {ex.Message}");
+			}
+		}
 
 
 
 		//CLASES AUXILIARES
+
 
 		public class ActividadPrecios
 		{
@@ -308,6 +407,12 @@ namespace FormularioLogin
 			public decimal PrecioMensual { get; set; }
 		}
 
-		
+		public class ResultadoCarnet
+		{
+			public bool EsPrimeraCuota { get; set; }
+			public string NumeroCarnet { get; set; } = string.Empty;
+		}
+
+
 	}
 }

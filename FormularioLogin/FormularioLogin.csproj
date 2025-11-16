@@ -242,6 +242,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrmCarnetSocio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCarnetSocio.Designer.cs">
+      <DependentUpon>FrmCarnetSocio.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configurations\AppConfiguration.cs" />
     <Compile Include="Data\DatabaseHelper.cs" />
     <Compile Include="Data\DBScriptsCreate.cs" />
@@ -271,6 +277,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmCarnetSocio.resx">
+      <DependentUpon>FrmCarnetSocio.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmInicio.resx">
       <DependentUpon>FrmInicio.cs</DependentUpon>
     </EmbeddedResource>
