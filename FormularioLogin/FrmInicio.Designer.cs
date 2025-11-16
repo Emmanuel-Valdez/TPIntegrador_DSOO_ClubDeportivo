@@ -87,12 +87,23 @@
             this.cuotasven.UseVisualStyleBackColor = true;
             this.cuotasven.Click += new System.EventHandler(this.cuotasven_Click);
             // 
+            // btnSalir
+            // 
+            this.btnSalir.Location = new System.Drawing.Point(12, 415);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(75, 23);
+            this.btnSalir.TabIndex = 7;
+            this.btnSalir.Text = "Salir";
+            this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            // 
             // FrmInicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.cuotasven);
             this.Controls.Add(this.vcuotas);
             this.Controls.Add(this.pcuota);
@@ -113,5 +124,6 @@
         private System.Windows.Forms.Button pcuota;
         private System.Windows.Forms.Button vcuotas;
         private System.Windows.Forms.Button cuotasven;
-    }
+		private System.Windows.Forms.Button btnSalir;
+	}
 }
